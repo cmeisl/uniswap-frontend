@@ -43,6 +43,10 @@ function txApproveMsg(eventCode, data) {
       return `${token} has been successfully unlocked. Woohoo!`;
     case 'txFailed':
       return `Uh oh something went wrong unlocking ${token}. Please try again later.`;
+    case 'txSpeedUp':
+      return `Your transaction to unlock ${token} is sped up!`;
+    case 'txCancel':
+      return `Your transaction to unlock ${token} is canceling!`;
     default:
       return undefined;
   }
@@ -64,6 +68,10 @@ function txExchangeMsg(eventCode, data) {
       return `${token} exchange successfully created. Woohoo!`;
     case 'txFailed':
       return `Uh oh something went wrong creating ${token} exchange. Please try again later.`;
+    case 'txSpeedUp':
+      return `Your transaction to create ${token} exchange is sped up!`;
+    case 'txCancel':
+      return `Your transaction to create ${token} exchange is canceling!`;
     default:
       return undefined;
   }
@@ -87,6 +95,10 @@ function txLiquidityMsg(eventCode, data) {
       return `${token} liquidity successfully ${methodName === 'addLiquidity' ? 'added' : 'removed'}. Woohoo!`;
     case 'txFailed':
       return `Uh oh something went wrong ${methodName === 'addLiquidity' ? 'adding' : 'removing'} ${token} liquidity. Please try again later.`;
+    case 'txSpeedUp':
+      return `Your transaction to ${methodName === 'addLiquidity' ? 'add' : 'remove'} ${token} liquidity is sped up!`;
+    case 'txCancel':
+      return `Your transaction to ${methodName === 'addLiquidity' ? 'add' : 'remove'} ${token} liquidity is canceling!`;
     default:
       return undefined;
   }
@@ -135,6 +147,10 @@ function txTransferMsg(eventCode, data) {
       return `Your ${transfer.token} transfer to address ${transfer.to.substr(0, 6)}... is complete! Woohoo!`;
     case 'txFailed':
       return `Uh oh something went wrong sending ${transfer.token} to address: ${transfer.to.substr(0, 6)}... Please try again later.`;
+    case 'txSpeedUp':
+      return `Your ${transfer.token} transfer to address: ${transfer.to.substr(0, 6)}... is sped up!`;
+    case 'txCancel':
+      return `Your ${transfer.token} transfer to address: ${transfer.to.substr(0, 6)}... is canceling!`;
     default:
       return undefined;
   }
@@ -183,6 +199,10 @@ function txSwapMsg(eventCode, data) {
       return `Your swap from ${exchange.from} to ${exchange.to} is complete! Woohoo!`;
     case 'txFailed':
       return `Uh oh something went wrong swapping ${exchange.from} to ${exchange.to}. Please try again later.`;
+    case 'txSpeedUp':
+      return `Your swap from ${exchange.from} to ${exchange.to} is sped up!`;
+    case 'txCancel':
+      return `Your swap from ${exchange.from} to ${exchange.to} is canceling!`;
     default:
       return undefined;
   }
@@ -223,6 +243,8 @@ export function getAssist(web3) {
       txPending: data => msgHandlers[data.contract.methodName]('txPending', data),
       txConfirmed: data => msgHandlers[data.contract.methodName]('txConfirmed', data),
       txFailed: data => msgHandlers[data.contract.methodName]('txFailed', data),
+      txSpeedUp: data => msgHandlers[data.contract.methodName]('txSpeedUp', data),
+      txCancel: data => msgHandlers[data.contract.methodName]('txCancel', data),
     }
   };
 
